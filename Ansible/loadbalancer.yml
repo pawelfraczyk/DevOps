@@ -1,5 +1,7 @@
 ---
 - hosts: loadbalancer
+  #sudo in the past. become can take 'yes' as parameter as well
+  become: true 
   tasks:
     - name: install nginx
       apt: name=nginx state=latest update_cache=yes
