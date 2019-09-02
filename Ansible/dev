@@ -4,6 +4,7 @@ lb01
 [webserver]
 app01
 app02
+ubuntu@ec2-3-15-169-37.us-east-2.compute.amazonaws.com
 
 [database]
 db01
