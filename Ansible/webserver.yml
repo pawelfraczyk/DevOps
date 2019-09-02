@@ -3,9 +3,12 @@
   become: true
   tasks:
     - name: install apache2
-      apt: name={{ item }} state=latest update_cache=yes
-      with_items: 
-        - apache2
-        - libapache2-mod-wsgi
-        - python-pip
-        - python-virtualenv
+      apt: 
+        name: 
+          - apache2
+          - libapache2-mod-wsgi
+          - python-pip
+          - python-virtualenv
+        state: latest 
+        update_cache: yes
+        
