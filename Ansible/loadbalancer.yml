@@ -9,14 +9,14 @@
         state: latest 
         update_cache: yes
     
-    - name: ensure nginx started
-      service: name=nginx state=started enabled=yes
+   #- name: ensure nginx started
+    #  service: name=nginx state=started enabled=yes
 
     - name: configure nginx
-      template: src=templates/nginx.conf.j2 dest=/etc/nginx/sites-available/demo mode=0644
+      template: src=templates/nginx.conf.j2 dest=/etc/nginx/sites-available/demo mode=0755
       notify: restart nginx
 
-    - name: de-activate ngnix default site
+    - name: de-activate nginx default site
       file: path=/etc/nginx/sites-enabled/default state=absent
       notify: restart nginx
 

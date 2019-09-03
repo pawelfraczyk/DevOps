@@ -1,11 +1,12 @@
 [loadbalancer]
-ubuntu@ec2-3-15-205-154.us-east-2.compute.amazonaws.com
+lb01
 
 [webserver]
-ubuntu@ec2-3-16-109-240.us-east-2.compute.amazonaws.com
+app01
+app02
 
 [database]
-ubuntu@ec2-18-188-160-5.us-east-2.compute.amazonaws.com
+db01
 
 [control]
 control ansible_connection=local
