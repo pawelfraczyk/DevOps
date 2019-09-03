@@ -3,6 +3,13 @@
   #sudo in the past. become can take 'yes' as parameter as well
   become: true 
   tasks:
+    - name: install tools
+      apt: 
+        name: 
+          - python-httplib2
+        state: latest 
+        update_cache: yes
+
     - name: install nginx
       apt: 
         name: nginx 
