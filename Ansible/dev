@@ -1,5 +1,5 @@
 [loadbalancer]
-ubuntu@ec2-3-15-169-37.us-east-2.compute.amazonaws.com
+ubuntu@ec2-3-15-205-154.us-east-2.compute.amazonaws.com
 
 [webserver]
 ubuntu@ec2-3-16-109-240.us-east-2.compute.amazonaws.com
