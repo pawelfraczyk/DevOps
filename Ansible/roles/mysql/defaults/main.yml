@@ -1,2 +1,6 @@
 ---
 # defaults file for mysql
+db_name: myapp
+db_user_name: sammy
+db_user_host: dummy
+db_user_host: localhost
