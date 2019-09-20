@@ -24,11 +24,14 @@ Vagrant.configure("2") do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
   # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 5601, host: 5601
+  config.vm.network "forwarded_port", guest: 9200, host: 9200
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
   # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -57,42 +60,46 @@ Vagrant.configure("2") do |config|
   #   vb.memory = "1024"
   # end
   #
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 4096
+    v.cpus = 2
+  end
   # View the documentation for the provider you are using for more
   # information on available options.
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-    config.vm.provision "shell", inline: <<-SHELL
-      sudo apt-get update
-      wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-      sudo apt-get install apt-transport-https
-      echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
-      sudo apt-get update && sudo apt-get install elasticsearch
-      # configure elasticsearch.yml to set-up nodes and host
-      sudo nano /etc/elasticsearch/elasticsearch.yml
-      sudo /bin/systemctl daemon-reload
-      sudo /bin/systemctl enable elasticsearch.service
-      sudo /bin/systemctl start elasticsearch.service
-      curl -XGET 127.0.0.1:9200
-      wget http://media.sundog-soft.com/es7/shakes-mapping.json
-      curl -H "Content-Type: application/json" -XPUT 127.0.0.1:9200/shakespeare --data-binary @shakes-mapping.json
-      wget http://media.sundog-soft.com/es7/shakespeare_7.0.json
-      curl -H 'Content-Type: application/json' -XPOST '127.0.0.1:9200/shakespeare/_bulk?pretty' --data-binary @shakespeare_7.0.json
-      curl -H 'Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '{"query" : {"match_phrase" : {"text_entry" : "to be or not to be"}}}'
-      # Logstash installation
-      sudo apt install openjdk-8-jre-headless
-      sudo apt-get update
-      sudo apt-get install logstash
-      #configure logstash
-      sudo nano /etc/logstash/conf.d/logstash.conf
-      wget media.sundog-soft.com/es/access_log
-      sudo apt-get update
-      sudo apt-get install kibana
-      sudo nano /etc/kibana/kibana.yml
-      # change server host to 0.0.0.0
-      sudo /bin/systemctl daemon-reload
-      sudo /bin/systemctl enable kibana.service
-      sudo /bin/systemctl start kibana.service
-    SHELL
+  #  config.vm.provision "shell", inline: <<-SHELL
+  #    sudo apt-get update
+  #    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+  #    sudo apt-get install apt-transport-https
+  #    echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+  #    sudo apt-get update && sudo apt-get install elasticsearch
+  #    # configure elasticsearch.yml to set-up nodes and host
+  #    sudo nano /etc/elasticsearch/elasticsearch.yml
+  #    sudo /bin/systemctl daemon-reload
+  #    sudo /bin/systemctl enable elasticsearch.service
+  #    sudo /bin/systemctl start elasticsearch.service
+  #    curl -XGET 127.0.0.1:9200
+  #    wget http://media.sundog-soft.com/es7/shakes-mapping.json
+  #    curl -H "Content-Type: application/json" -XPUT 127.0.0.1:9200/shakespeare --data-binary @shakes-mapping.json
+  #    wget http://media.sundog-soft.com/es7/shakespeare_7.0.json
+  #    curl -H 'Content-Type: application/json' -XPOST '127.0.0.1:9200/shakespeare/_bulk?pretty' --data-binary @shakespeare_7.0.json
+  #    curl -H 'Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '{"query" : {"match_phrase" : {"text_entry" : "to be or not to be"}}}'
+  #    # Logstash installation
+  #    sudo apt install openjdk-8-jre-headless
+  #    sudo apt-get update
+  #    sudo apt-get install logstash
+  #    #configure logstash
+  #    sudo nano /etc/logstash/conf.d/logstash.conf
+  #    wget media.sundog-soft.com/es/access_log
+  #    sudo apt-get update
+  #    sudo apt-get install kibana
+  #    sudo nano /etc/kibana/kibana.yml
+  #    # change server host to 0.0.0.0
+  #    sudo /bin/systemctl daemon-reload
+  #    sudo /bin/systemctl enable kibana.service
+  #    sudo /bin/systemctl start kibana.service
+  #  SHELL
 end
