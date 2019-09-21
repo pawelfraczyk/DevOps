@@ -5,8 +5,13 @@
   tasks:
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=86400
+      tags: [ 'packages' ]
   
 - import_playbook: control.yml
 - import_playbook: database.yml
 - import_playbook: webserver.yml
 - import_playbook: loadbalancer.yml
+
+# ansible-playbook site.yml --limit app01 - limitation to execute for particular host
+# anbible-playbook site.yml --list-tags - lists all tags 
+# ansible-playbook site.yml --tags "packages" - runs only tasks with tag (also can --skip-tags)

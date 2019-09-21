@@ -6,3 +6,4 @@
       - curl
       - python-httplib2
     state: latest
+  tags: [ 'packages' ]
