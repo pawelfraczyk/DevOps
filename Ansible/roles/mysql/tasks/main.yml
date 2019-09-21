@@ -4,14 +4,12 @@
   apt: 
     name: 
       - python-mysqldb
-    state: latest 
-    update_cache: yes
+    state: latest
 
 - name: install mysql-server
   apt: 
     name: mysql-server 
-    state: latest 
-    update_cache: yes
+    state: latest
 
 - name: ensure mysql listening on all ports
   lineinfile: dest=/etc/mysql/my.cnf regexp=^bind-address

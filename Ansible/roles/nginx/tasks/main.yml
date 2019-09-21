@@ -4,15 +4,13 @@
   apt: 
     name: 
       - python-httplib2
-    state: latest 
-    update_cache: yes
+    state: latest
 
 - name: install nginx
   apt: 
     name: nginx 
     state: latest 
-    update_cache: yes
-
+    
 - name: configure nginx
   template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/{{ item.key }} mode=0644
   with_dict: "{{ sites }}"
