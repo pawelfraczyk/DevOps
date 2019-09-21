@@ -25,6 +25,7 @@
   changed_when: "active.stdout_lines != sites.keys()"
   tags: [ 'configure' ]
 
+- debug: var=vars
 - debug: var=active.stdout_lines
 
 - name: de-activate sites
