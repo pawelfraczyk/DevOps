@@ -15,3 +15,8 @@
 # ansible-playbook site.yml --limit app01 - limitation to execute for particular host
 # anbible-playbook site.yml --list-tags - lists all tags 
 # ansible-playbook site.yml --tags "packages" - runs only tasks with tag (also can --skip-tags)
+# ansible-playbook site.yml --step - executing step by step
+# anbible-playbook site.yml --list-tasks - lists all tasks and tags 
+# anbible-playbook site.yml --start-at-task "{name of task}" - executing playbook from selected task
+# ansible-playbook --syntax-check site.yml - static check of files
+# ansible-playbook --check site.yml - dry run without actual changes on production
