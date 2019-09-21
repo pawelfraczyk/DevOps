@@ -2,5 +2,6 @@
 - hosts: loadbalancer
   #sudo in the past. become can take 'yes' as parameter as well
   become: true 
+  gather_facts: false
   roles:
     - nginx
