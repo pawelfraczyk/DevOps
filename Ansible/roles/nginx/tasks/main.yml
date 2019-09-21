@@ -18,13 +18,19 @@
   with_dict: "{{ sites }}"
   notify: restart nginx
 
-- name: de-activate nginx default site
-  file: path=/etc/nginx/sites-enabled/default state=absent
+- name: get active sites
+  shell: ls -1 /etc/nginx/sites-enabled
+  register: active
+
+- name: de-activate sites
+  file: path=/etc/nginx/sites-enabled/{{ item }} state=absent
+  loop: "{{ active.stdout_lines|flatten }}"
+  when: item not in sites
   notify: restart nginx
 
 - name: activate nginx site
   file: src=/etc/nginx/sites-available/{{ item.key }} dest=/etc/nginx/sites-enabled/{{ item.key }} state=link
-  with_dict: "{{ sites }}"
+  loop: "{{ sites|dict2items }}"
   notify: restart nginx
 
 - name: ensure nginx started
