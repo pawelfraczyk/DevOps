@@ -13,9 +13,8 @@
   copy: src=demo/app/ dest=/var/www/demo mode=0755
   notify: restart apache2
 
-- name: change credentials for database login
-  lineinfile: dest=/var/www/demo/demo.wsgi regexp=^os.environ
-              line="os.environ['DATABASE_URI'] = 'mysql://{{ db_user_name }}:{{ db_user_pass}}@db01/{{ db_name }}'"
+- name: copy demo.wsqi
+  template: src=demo.wsgi.j2 dest=/var/www/demo/demo.wsqi mode=0755
   notify: restart apache2
 
 - name: copy apache virtual host config
