@@ -28,6 +28,6 @@
   tags: [ 'configure' ]
 
 - name: create user
-  mysql_user: name={{ db_user_name }} password={{ db_user_pass }} priv={{ db_name }}.*:ALL 
+  mysql_user: name={{ db_user }} password={{ db_pass }} priv={{ db_name }}.*:ALL 
               host='%' state=present
   tags: [ 'configure' ]
